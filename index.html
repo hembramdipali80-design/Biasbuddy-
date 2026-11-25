@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BiasBuddy 💗</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fff0f6;
+  color: #59364c;
+}
+header {
+  background: #ffb6d2;
+  padding: 22px;
+  text-align: center;
+}
+header h1 { margin: 0; font-size: 32px; }
+header p { margin-bottom: 0; }
+main { max-width: 850px; margin: auto; padding: 20px; }
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  margin: 15px 0;
+  box-shadow: 0 3px 12px #e9bfd0;
+}
+h2 { color: #d94f91; }
+.companions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+  gap: 12px;
+}
+.companion {
+  background: #ffe1ed;
+  border: 2px solid #ffc0d9;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+}
+.companion:hover { background: #ffd0e3; }
+button {
+  border: none;
+  background: #ed70a5;
+  color: white;
+  padding: 11px 17px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 5px;
+}
+button:hover { background: #d94f91; }
+input {
+  padding: 12px;
+  border: 1px solid #e8a9c5;
+  border-radius: 10px;
+  width: 70%;
+  max-width: 450px;
+}
+#chat {
+  height: 180px;
+  overflow-y: auto;
+  background: #fff7fa;
+  border-radius: 12px;
+  padding: 12px;
+}
+.task { padding: 8px; }
+footer { text-align: center; padding: 20px; color: #a56b89; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💗 BiasBuddy</h1>
+  <p>Your little study universe ✨</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Welcome, Student! 🌷</h2>
+    <p>Make today a little more productive. You've got this!</p>
+  </section>
+
+  <section class="card">
+    <h2>Choose Your Study Buddy 🎀</h2>
+    <div class="companions">
+      <div class="companion" onclick="chooseBuddy('Smart Mentor')">
+        📚<h3>Smart Mentor</h3>
+        <p>Helpful and clever</p>
+      </div>
+      <div class="companion" onclick="chooseBuddy('Sunshine Buddy')">
+        ☀️<h3>Sunshine Buddy</h3>
+        <p>Cheerful and positive</p>
+      </div>
+      <div class="companion" onclick="chooseBuddy('Strict Coach')">
+        🔥<h3>Strict Coach</h3>
+        <p>Focused and disciplined</p>
+      </div>
+      <div class="companion" onclick="chooseBuddy('Comfort Buddy')">
+        🧸<h3>Comfort Buddy</h3>
+        <p>Gentle and supportive</p>
+      </div>
+    </div>
+    <p id="selected">Choose a buddy to begin!</p>
+  </section>
+
+  <section class="card">
+    <h2>💬 Study Chat</h2>
+    <div id="chat">
+      <p><b>BiasBuddy:</b> Hello! Ready to study together? 💗</p>
+    </div>
+    <input id="message" placeholder="Ask a study question...">
+    <button onclick="sendMessage()">Send</button>
+    <p><small>This starter version uses demo replies, not a live AI.</small></p>
+  </section>
+
+  <section class="card">
+    <h2>⏰ Pomodoro Timer</h2>
+    <h1 id="timer">25:00</h1>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="pauseTimer()">Pause</button>
+    <button onclick="resetTimer()">Reset</button>
+  </section>
+
+  <section class="card">
+    <h2>✅ Today's Tasks</h2>
+    <input id="taskInput" placeholder="Add a study task...">
+    <button onclick="addTask()">Add</button>
+    <div id="tasks"></div>
+  </section>
+</main>
+
+<footer>Made with 💗 for your study journey | BiasBuddy</footer>
+
+<script>
+let buddy = "Study Buddy";
+
+function chooseBuddy(name) {
+  buddy = name;
+  document.getElementById("selected").textContent =
+    "Your chosen buddy: " + name + " 💗";
+}
+
+function sendMessage() {
+  const input = document.getElementById("message");
+  const chat = document.getElementById("chat");
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  chat.innerHTML += "<p><b>You:</b> " + escapeHTML(msg) + "</p>";
+
+  let reply = "Let's break that into smaller steps. You can do it! 🌷";
+  if (msg.toLowerCase().includes("hello"))
+    reply = "Hello! I'm happy to study with you! 💗";
+  else if (msg.toLowerCase().includes("tired"))
+    reply = "Take a little break. Your wellbeing matters too. 🌸";
+  else if (msg.includes("?"))
+    reply = "Good question! Let's explore it together. 📚";
+
+  chat.innerHTML += "<p><b>" + buddy + ":</b> " +
+    reply + "</p>";
+  chat.scrollTop = chat.scrollHeight;
+  input.value = "";
+}
+
+function escapeHTML(text) {
+  return text.replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
+  })[c]);
+}
+
+let seconds = 25 * 60;
+let interval = null;
+
+function updateTimer() {
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+  document.getElementById("timer").textContent =
+    String(min).padStart(2,"0") + ":" +
+    String(sec).padStart(2,"0");
+}
+
+function startTimer() {
+  if (interval) return;
+  interval = setInterval(() => {
+    if (seconds > 0) {
+      seconds--;
+      updateTimer();
+    } else {
+      clearInterval(interval);
+      interval = null;
+      alert("Study session complete! Take a break 💗");
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval
