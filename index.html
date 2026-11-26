@@ -3,249 +3,123 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BiasBuddy 💜</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;font-family:Arial,sans-serif;
- background:#f6edff;color:#50366c;
-}
-header{
- background:linear-gradient(120deg,#a77be8,#d2a8f5);
- color:white;text-align:center;padding:22px;
- border-radius:0 0 25px 25px;
-}
-header h1{margin:0;font-size:29px}
-main{max-width:520px;margin:auto;padding:16px}
-.page{display:none}
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#fce1f2,#e5d9ff);color:#492d61}
+header{text-align:center;padding:22px}
+h1{margin:0;font-size:32px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;padding:10px;background:#f7e8fa;position:sticky;top:0}
+button,select,input{font:inherit;border:0;border-radius:14px;padding:11px}
+button{background:#a76bd1;color:white;cursor:pointer}
+input,select{width:100%;margin:7px 0;background:white}
+.page{display:none;padding:18px;max-width:650px;margin:auto}
 .page.active{display:block}
-.card{
- background:white;padding:20px;border-radius:20px;
- margin:14px 0;box-shadow:0 4px 16px #9b78b522;
-}
-h2{color:#9062c5}
-button,input,select{
- width:100%;padding:13px;margin:6px 0;
- border:1px solid #dfc8f5;border-radius:12px;
- font-size:15px;
-}
-button{
- background:#a77be8;color:white;border:0;
- font-weight:bold;cursor:pointer;
-}
-button:active{opacity:.75}
-.nav{
- position:sticky;bottom:0;background:white;
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:5px;padding:9px;box-shadow:0 -3px 15px #9b78b522;
-}
-.nav button{font-size:12px;padding:12px 3px}
-.secondary{background:#eadbfa;color:#68468d}
-#messages{
- height:240px;overflow-y:auto;background:#faf6ff;
- padding:10px;border-radius:14px;
-}
-.msg{padding:11px;border-radius:13px;margin:7px 0;
- max-width:90%;overflow-wrap:anywhere}
-.bot{background:#eddefc}
-.user{background:#d8c0fa;margin-left:auto}
-.small{font-size:12px;color:#89749b;line-height:1.5}
+.card{background:#ffffffd9;padding:18px;border-radius:20px;margin:12px 0}
+.chatbox{height:250px;overflow:auto;background:white;padding:12px;border-radius:15px;margin:12px 0}
+.msg{padding:10px;margin:8px 0;border-radius:13px}
+.me{background:#f3dafa;text-align:right}
+.bot{background:#e8e0ff}
+.small{font-size:13px;color:#765c83}
 </style>
 </head>
 <body>
-
 <header>
 <h1>💜 BiasBuddy</h1>
-<p>Your little K-pop inspired universe ✨</p>
+<p>Your K-pop fan companion ✨</p>
 </header>
 
-<main>
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('chat')">Chat</button>
+<button onclick="showPage('voice')">Voice 🎤</button>
+<button onclick="showPage('study')">Study 📚</button>
+<button onclick="showPage('choose')">Choose Buddy</button>
+<button onclick="showPage('settings')">Settings</button>
+</nav>
 
 <section id="home" class="page active">
 <div class="card">
-<h2>안녕! Welcome home 🌸</h2>
-<p>Welcome to your happy place!</p>
-<p>Chat, study, and have fun with your fictional buddy.</p>
-<button onclick="showPage('chat')">💌 Open Chat Room</button>
-<button onclick="showPage('voice')">🎤 Open Voice Room</button>
-<button onclick="showPage('study')">📚 Open Study Room</button>
+<h2>Welcome to BiasBuddy! 💗</h2>
+<p>Chat, study and have fun with your fan-made K-pop buddies.</p>
+<button onclick="showPage('choose')">Choose your buddy</button>
 </div>
 <div class="card">
-<h2>✨ Your BiasBuddy</h2>
-<p id="homeBuddy">Sweet Bestie 💜</p>
-<button class="secondary" onclick="showPage('choose')">Choose another buddy</button>
+<h3>Your buddy ✨</h3>
+<p id="homeBuddy">Your buddy is waiting!</p>
+<button onclick="showPage('chat')">Start chatting</button>
 </div>
 </section>
 
 <section id="chat" class="page">
 <div class="card">
 <h2>💬 Chat Room</h2>
-<div id="messages">
-<div class="msg bot">Annyeong! 💜 I'm your fictional buddy. How are you today?</div>
+<p id="chatBuddy">Your buddy</p>
+<div id="chatbox" class="chatbox">
+<div class="msg bot">Hello! Welcome to BiasBuddy! 💜</div>
 </div>
-<input id="chatInput" placeholder="Write something...">
+<input id="message" placeholder="Type a message...">
 <button onclick="sendMessage()">Send 💌</button>
-<button class="secondary" onclick="showPage('home')">Home</button>
 </div>
 </section>
 
 <section id="voice" class="page">
 <div class="card">
 <h2>🎤 Voice Room</h2>
-<p>Talk using your browser's supported voice features.</p>
-<button onclick="listen()">🎙️ Speak to Buddy</button>
-<button onclick="stopSpeaking()">🔇 Stop voice</button>
-<p id="voiceStatus" class="small">Voice availability depends on your browser.</p>
-<div id="voiceReply" class="msg bot">Your buddy is ready! 💜</div>
+<p>Talk to your fan-made buddy!</p>
+<div id="voiceReply" class="chatbox">Press the microphone and say something! 💜</div>
+<button onclick="listen()">🎙️ Speak</button>
+<button onclick="stopSpeaking()">🔇 Stop</button>
+<p id="voiceStatus" class="small">Voice support depends on your browser and device.</p>
 </div>
 </section>
 
 <section id="study" class="page">
 <div class="card">
-<h2>📚 Study Room</h2>
-<p>Let's make learning fun!</p>
-<input id="subject" placeholder="What subject are you studying?">
-<button onclick="study()">Start studying ✨</button>
-<div id="studyReply" class="msg bot">Small steps make big progress! 💜</div>
+<h2>📚 Study With Me</h2>
+<p id="studyMessage">You can do it! One step at a time. 💜</p>
+<button onclick="studyCheer()">Motivate me!</button>
 </div>
 </section>
 
 <section id="choose" class="page">
 <div class="card">
-<h2>🎀 Choose your buddy</h2>
-<p>Select a personality:</p>
-<select id="buddySelect" onchange="changeBuddy()">
-<option>Sweet Bestie</option>
-<option>Funny Bestie</option>
-<option>Motivational Bestie</option>
-<option>Study Bestie</option>
+<h2>🌟 Choose Your Buddy</h2>
+<label>Group</label>
+<select id="group" onchange="updateMembers()">
+<option>BTS</option><option>BLACKPINK</option>
+<option>STRAY KIDS</option><option>TWICE</option>
+<option>ENHYPEN</option><option>SEVENTEEN</option>
+<option>TXT</option><option>ATEEZ</option>
+<option>IVE</option><option>aespa</option>
+<option>LE SSERAFIM</option><option>NewJeans</option>
+<option>CORTIS</option><option>ILLIT</option>
+<option>BABYMONSTER</option><option>NCT</option>
+<option>EXO</option><option>RIIZE</option>
+<option>ZEROBASEONE</option>
 </select>
-<input id="nickname" placeholder="Your nickname">
+<label>Member</label>
+<select id="member"></select>
+<label>Personality</label>
+<select id="personality">
+<option>Friendly</option><option>Funny</option>
+<option>Calm</option><option>Study partner</option>
+<option>Encouraging</option>
+</select>
 <button onclick="saveBuddy()">Save my buddy 💜</button>
-<p id="buddyStatus" class="small"></p>
 </div>
 </section>
 
 <section id="settings" class="page">
 <div class="card">
 <h2>⚙️ Settings</h2>
-<label>Your display name</label>
-<input id="settingName" placeholder="Enter your name">
-<button onclick="saveName()">Save name</button>
-<button class="secondary" onclick="showPage('home')">Back home</button>
-<p class="small">Your buddy is fictional and is not a real K-pop idol.</p>
+<label>Spoken reply voice</label>
+<select id="voiceChoice"></select>
+<button onclick="loadVoices()">Refresh voices</button>
+<button onclick="stopSpeaking()">Stop voice</button>
+<p class="small">These are synthetic device voices, not actual idol voices.</p>
 </div>
 </section>
-
-</main>
-
-<nav class="nav">
-<button onclick="showPage('home')">🏠 Home</button>
-<button onclick="showPage('chat')">💬 Chat</button>
-<button onclick="showPage('voice')">🎤 Voice</button>
-<button onclick="showPage('study')">📚 Study</button>
-<button onclick="showPage('choose')">🎀 Buddy</button>
-<button onclick="showPage('settings')">⚙️ Settings</button>
-</nav>
-
-<script>
-let buddy="Sweet Bestie";
-let nickname="Friend";
-
-function showPage(id){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- window.scrollTo(0,0);
-}
-
-function changeBuddy(){
- buddy=document.getElementById('buddySelect').value;
-}
-
-function saveBuddy(){
- buddy=document.getElementById('buddySelect').value;
- nickname=document.getElementById('nickname').value.trim()||"Friend";
- document.getElementById('homeBuddy').textContent=buddy+" 💜";
- document.getElementById('buddyStatus').textContent="Your buddy is ready, "+nickname+"! ✨";
-}
-
-function saveName(){
- nickname=document.getElementById('settingName').value.trim()||"Friend";
- document.getElementById('buddyStatus').textContent="Name saved!";
- alert("Your name is saved for this session, "+nickname+"!");
-}
-
-function getReply(message){
- let m=message.toLowerCase();
- if(m.includes("hello")||m.includes("hi"))return "Annyeong "+nickname+"!! 💜 How are you?";
- if(m.includes("sad"))return "I'm sorry you're having a difficult day. Want to talk about it? 💜";
- if(m.includes("study"))return "Let's study together! One topic at a time. Fighting! 📚";
- if(m.includes("kpop")||m.includes("music"))return "K-pop time!! 🎶 What's your favourite song?";
- if(m.includes("thank"))return "You're very welcome! 💜";
- if(buddy==="Funny Bestie")return "Haha! 😂 Tell me more!";
- if(buddy==="Motivational Bestie")return "You can make progress one step at a time! ✨";
- if(buddy==="Study Bestie")return "Let's turn that into a small study goal! 📚";
- return "That's interesting! 💜 Tell me more!";
-}
-
-function sendMessage(){
- let input=document.getElementById('chatInput');
- let msg=input.value.trim();
- if(!msg)return;
- addMessage(msg,'user');
- input.value="";
- setTimeout(()=>addMessage(getReply(msg),'bot'),300);
-}
-
-function addMessage(text,type){
- let div=document.createElement('div');
- div.className='msg '+type;
- div.textContent=text;
- let box=document.getElementById('messages');
- box.appendChild(div);
- box.scrollTop=box.scrollHeight;
-}
-
-document.getElementById('chatInput').addEventListener('keydown',e=>{
- if(e.key==="Enter")sendMessage();
-});
-
-function study(){
- let subject=document.getElementById('subject').value.trim();
- document.getElementById('studyReply').textContent=
- subject ? "Let's focus on "+subject+"! 📚 Start with one small topic. You can do it! 💜" :
- "Choose a subject first! 💜";
-}
-
-function listen(){
- const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(!Recognition){
- document.getElementById('voiceStatus').textContent="Speech recognition isn't supported in this browser. Try Chrome or use chat.";
- return;
- }
- let recognition=new Recognition();
- recognition.lang="en-IN";
- recognition.onresult=e=>{
- let words=e.results[0][0].transcript;
- document.getElementById('voiceReply').textContent="You said: "+words;
- };
- recognition.onerror=()=>{
- document.getElementById('voiceStatus').textContent="Voice unavailable. Please try again.";
- };
- recognition.onstart=()=>{
- document.getElementById('voiceStatus').textContent="Listening...";
- };
- recognition.onend=()=>{
- document.getElementById('voiceStatus').textContent="Finished listening.";
- };
- recognition.start();
-}
-
-function stopSpeaking(){
- if('speechSynthesis' in window)speechSynthesis.cancel();
- document.getElementById('voiceStatus').textContent="Voice stopped.";
-}
-</script>
 </body>
 </html>
