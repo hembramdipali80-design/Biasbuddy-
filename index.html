@@ -3,200 +3,249 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BiasBuddy 💗</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BiasBuddy 💜</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #fff0f6;
-  color: #59364c;
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Arial,sans-serif;
+ background:#f6edff;color:#50366c;
 }
-header {
-  background: #ffb6d2;
-  padding: 22px;
-  text-align: center;
+header{
+ background:linear-gradient(120deg,#a77be8,#d2a8f5);
+ color:white;text-align:center;padding:22px;
+ border-radius:0 0 25px 25px;
 }
-header h1 { margin: 0; font-size: 32px; }
-header p { margin-bottom: 0; }
-main { max-width: 850px; margin: auto; padding: 20px; }
-.card {
-  background: white;
-  border-radius: 18px;
-  padding: 18px;
-  margin: 15px 0;
-  box-shadow: 0 3px 12px #e9bfd0;
+header h1{margin:0;font-size:29px}
+main{max-width:520px;margin:auto;padding:16px}
+.page{display:none}
+.page.active{display:block}
+.card{
+ background:white;padding:20px;border-radius:20px;
+ margin:14px 0;box-shadow:0 4px 16px #9b78b522;
 }
-h2 { color: #d94f91; }
-.companions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
-  gap: 12px;
+h2{color:#9062c5}
+button,input,select{
+ width:100%;padding:13px;margin:6px 0;
+ border:1px solid #dfc8f5;border-radius:12px;
+ font-size:15px;
 }
-.companion {
-  background: #ffe1ed;
-  border: 2px solid #ffc0d9;
-  border-radius: 15px;
-  padding: 15px;
-  text-align: center;
-  cursor: pointer;
+button{
+ background:#a77be8;color:white;border:0;
+ font-weight:bold;cursor:pointer;
 }
-.companion:hover { background: #ffd0e3; }
-button {
-  border: none;
-  background: #ed70a5;
-  color: white;
-  padding: 11px 17px;
-  border-radius: 12px;
-  cursor: pointer;
-  margin: 5px;
+button:active{opacity:.75}
+.nav{
+ position:sticky;bottom:0;background:white;
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:5px;padding:9px;box-shadow:0 -3px 15px #9b78b522;
 }
-button:hover { background: #d94f91; }
-input {
-  padding: 12px;
-  border: 1px solid #e8a9c5;
-  border-radius: 10px;
-  width: 70%;
-  max-width: 450px;
+.nav button{font-size:12px;padding:12px 3px}
+.secondary{background:#eadbfa;color:#68468d}
+#messages{
+ height:240px;overflow-y:auto;background:#faf6ff;
+ padding:10px;border-radius:14px;
 }
-#chat {
-  height: 180px;
-  overflow-y: auto;
-  background: #fff7fa;
-  border-radius: 12px;
-  padding: 12px;
-}
-.task { padding: 8px; }
-footer { text-align: center; padding: 20px; color: #a56b89; }
+.msg{padding:11px;border-radius:13px;margin:7px 0;
+ max-width:90%;overflow-wrap:anywhere}
+.bot{background:#eddefc}
+.user{background:#d8c0fa;margin-left:auto}
+.small{font-size:12px;color:#89749b;line-height:1.5}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>💗 BiasBuddy</h1>
-  <p>Your little study universe ✨</p>
+<h1>💜 BiasBuddy</h1>
+<p>Your little K-pop inspired universe ✨</p>
 </header>
 
 <main>
-  <section class="card">
-    <h2>Welcome, Student! 🌷</h2>
-    <p>Make today a little more productive. You've got this!</p>
-  </section>
 
-  <section class="card">
-    <h2>Choose Your Study Buddy 🎀</h2>
-    <div class="companions">
-      <div class="companion" onclick="chooseBuddy('Smart Mentor')">
-        📚<h3>Smart Mentor</h3>
-        <p>Helpful and clever</p>
-      </div>
-      <div class="companion" onclick="chooseBuddy('Sunshine Buddy')">
-        ☀️<h3>Sunshine Buddy</h3>
-        <p>Cheerful and positive</p>
-      </div>
-      <div class="companion" onclick="chooseBuddy('Strict Coach')">
-        🔥<h3>Strict Coach</h3>
-        <p>Focused and disciplined</p>
-      </div>
-      <div class="companion" onclick="chooseBuddy('Comfort Buddy')">
-        🧸<h3>Comfort Buddy</h3>
-        <p>Gentle and supportive</p>
-      </div>
-    </div>
-    <p id="selected">Choose a buddy to begin!</p>
-  </section>
+<section id="home" class="page active">
+<div class="card">
+<h2>안녕! Welcome home 🌸</h2>
+<p>Welcome to your happy place!</p>
+<p>Chat, study, and have fun with your fictional buddy.</p>
+<button onclick="showPage('chat')">💌 Open Chat Room</button>
+<button onclick="showPage('voice')">🎤 Open Voice Room</button>
+<button onclick="showPage('study')">📚 Open Study Room</button>
+</div>
+<div class="card">
+<h2>✨ Your BiasBuddy</h2>
+<p id="homeBuddy">Sweet Bestie 💜</p>
+<button class="secondary" onclick="showPage('choose')">Choose another buddy</button>
+</div>
+</section>
 
-  <section class="card">
-    <h2>💬 Study Chat</h2>
-    <div id="chat">
-      <p><b>BiasBuddy:</b> Hello! Ready to study together? 💗</p>
-    </div>
-    <input id="message" placeholder="Ask a study question...">
-    <button onclick="sendMessage()">Send</button>
-    <p><small>This starter version uses demo replies, not a live AI.</small></p>
-  </section>
+<section id="chat" class="page">
+<div class="card">
+<h2>💬 Chat Room</h2>
+<div id="messages">
+<div class="msg bot">Annyeong! 💜 I'm your fictional buddy. How are you today?</div>
+</div>
+<input id="chatInput" placeholder="Write something...">
+<button onclick="sendMessage()">Send 💌</button>
+<button class="secondary" onclick="showPage('home')">Home</button>
+</div>
+</section>
 
-  <section class="card">
-    <h2>⏰ Pomodoro Timer</h2>
-    <h1 id="timer">25:00</h1>
-    <button onclick="startTimer()">Start</button>
-    <button onclick="pauseTimer()">Pause</button>
-    <button onclick="resetTimer()">Reset</button>
-  </section>
+<section id="voice" class="page">
+<div class="card">
+<h2>🎤 Voice Room</h2>
+<p>Talk using your browser's supported voice features.</p>
+<button onclick="listen()">🎙️ Speak to Buddy</button>
+<button onclick="stopSpeaking()">🔇 Stop voice</button>
+<p id="voiceStatus" class="small">Voice availability depends on your browser.</p>
+<div id="voiceReply" class="msg bot">Your buddy is ready! 💜</div>
+</div>
+</section>
 
-  <section class="card">
-    <h2>✅ Today's Tasks</h2>
-    <input id="taskInput" placeholder="Add a study task...">
-    <button onclick="addTask()">Add</button>
-    <div id="tasks"></div>
-  </section>
+<section id="study" class="page">
+<div class="card">
+<h2>📚 Study Room</h2>
+<p>Let's make learning fun!</p>
+<input id="subject" placeholder="What subject are you studying?">
+<button onclick="study()">Start studying ✨</button>
+<div id="studyReply" class="msg bot">Small steps make big progress! 💜</div>
+</div>
+</section>
+
+<section id="choose" class="page">
+<div class="card">
+<h2>🎀 Choose your buddy</h2>
+<p>Select a personality:</p>
+<select id="buddySelect" onchange="changeBuddy()">
+<option>Sweet Bestie</option>
+<option>Funny Bestie</option>
+<option>Motivational Bestie</option>
+<option>Study Bestie</option>
+</select>
+<input id="nickname" placeholder="Your nickname">
+<button onclick="saveBuddy()">Save my buddy 💜</button>
+<p id="buddyStatus" class="small"></p>
+</div>
+</section>
+
+<section id="settings" class="page">
+<div class="card">
+<h2>⚙️ Settings</h2>
+<label>Your display name</label>
+<input id="settingName" placeholder="Enter your name">
+<button onclick="saveName()">Save name</button>
+<button class="secondary" onclick="showPage('home')">Back home</button>
+<p class="small">Your buddy is fictional and is not a real K-pop idol.</p>
+</div>
+</section>
+
 </main>
 
-<footer>Made with 💗 for your study journey | BiasBuddy</footer>
+<nav class="nav">
+<button onclick="showPage('home')">🏠 Home</button>
+<button onclick="showPage('chat')">💬 Chat</button>
+<button onclick="showPage('voice')">🎤 Voice</button>
+<button onclick="showPage('study')">📚 Study</button>
+<button onclick="showPage('choose')">🎀 Buddy</button>
+<button onclick="showPage('settings')">⚙️ Settings</button>
+</nav>
 
 <script>
-let buddy = "Study Buddy";
+let buddy="Sweet Bestie";
+let nickname="Friend";
 
-function chooseBuddy(name) {
-  buddy = name;
-  document.getElementById("selected").textContent =
-    "Your chosen buddy: " + name + " 💗";
+function showPage(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ window.scrollTo(0,0);
 }
 
-function sendMessage() {
-  const input = document.getElementById("message");
-  const chat = document.getElementById("chat");
-  const msg = input.value.trim();
-  if (!msg) return;
-
-  chat.innerHTML += "<p><b>You:</b> " + escapeHTML(msg) + "</p>";
-
-  let reply = "Let's break that into smaller steps. You can do it! 🌷";
-  if (msg.toLowerCase().includes("hello"))
-    reply = "Hello! I'm happy to study with you! 💗";
-  else if (msg.toLowerCase().includes("tired"))
-    reply = "Take a little break. Your wellbeing matters too. 🌸";
-  else if (msg.includes("?"))
-    reply = "Good question! Let's explore it together. 📚";
-
-  chat.innerHTML += "<p><b>" + buddy + ":</b> " +
-    reply + "</p>";
-  chat.scrollTop = chat.scrollHeight;
-  input.value = "";
+function changeBuddy(){
+ buddy=document.getElementById('buddySelect').value;
 }
 
-function escapeHTML(text) {
-  return text.replace(/[&<>"']/g, c => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;",
-    '"':"&quot;", "'":"&#39;"
-  })[c]);
+function saveBuddy(){
+ buddy=document.getElementById('buddySelect').value;
+ nickname=document.getElementById('nickname').value.trim()||"Friend";
+ document.getElementById('homeBuddy').textContent=buddy+" 💜";
+ document.getElementById('buddyStatus').textContent="Your buddy is ready, "+nickname+"! ✨";
 }
 
-let seconds = 25 * 60;
-let interval = null;
-
-function updateTimer() {
-  const min = Math.floor(seconds / 60);
-  const sec = seconds % 60;
-  document.getElementById("timer").textContent =
-    String(min).padStart(2,"0") + ":" +
-    String(sec).padStart(2,"0");
+function saveName(){
+ nickname=document.getElementById('settingName').value.trim()||"Friend";
+ document.getElementById('buddyStatus').textContent="Name saved!";
+ alert("Your name is saved for this session, "+nickname+"!");
 }
 
-function startTimer() {
-  if (interval) return;
-  interval = setInterval(() => {
-    if (seconds > 0) {
-      seconds--;
-      updateTimer();
-    } else {
-      clearInterval(interval);
-      interval = null;
-      alert("Study session complete! Take a break 💗");
-    }
-  }, 1000);
+function getReply(message){
+ let m=message.toLowerCase();
+ if(m.includes("hello")||m.includes("hi"))return "Annyeong "+nickname+"!! 💜 How are you?";
+ if(m.includes("sad"))return "I'm sorry you're having a difficult day. Want to talk about it? 💜";
+ if(m.includes("study"))return "Let's study together! One topic at a time. Fighting! 📚";
+ if(m.includes("kpop")||m.includes("music"))return "K-pop time!! 🎶 What's your favourite song?";
+ if(m.includes("thank"))return "You're very welcome! 💜";
+ if(buddy==="Funny Bestie")return "Haha! 😂 Tell me more!";
+ if(buddy==="Motivational Bestie")return "You can make progress one step at a time! ✨";
+ if(buddy==="Study Bestie")return "Let's turn that into a small study goal! 📚";
+ return "That's interesting! 💜 Tell me more!";
 }
 
-function pauseTimer() {
-  clearInterval
+function sendMessage(){
+ let input=document.getElementById('chatInput');
+ let msg=input.value.trim();
+ if(!msg)return;
+ addMessage(msg,'user');
+ input.value="";
+ setTimeout(()=>addMessage(getReply(msg),'bot'),300);
+}
+
+function addMessage(text,type){
+ let div=document.createElement('div');
+ div.className='msg '+type;
+ div.textContent=text;
+ let box=document.getElementById('messages');
+ box.appendChild(div);
+ box.scrollTop=box.scrollHeight;
+}
+
+document.getElementById('chatInput').addEventListener('keydown',e=>{
+ if(e.key==="Enter")sendMessage();
+});
+
+function study(){
+ let subject=document.getElementById('subject').value.trim();
+ document.getElementById('studyReply').textContent=
+ subject ? "Let's focus on "+subject+"! 📚 Start with one small topic. You can do it! 💜" :
+ "Choose a subject first! 💜";
+}
+
+function listen(){
+ const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!Recognition){
+ document.getElementById('voiceStatus').textContent="Speech recognition isn't supported in this browser. Try Chrome or use chat.";
+ return;
+ }
+ let recognition=new Recognition();
+ recognition.lang="en-IN";
+ recognition.onresult=e=>{
+ let words=e.results[0][0].transcript;
+ document.getElementById('voiceReply').textContent="You said: "+words;
+ };
+ recognition.onerror=()=>{
+ document.getElementById('voiceStatus').textContent="Voice unavailable. Please try again.";
+ };
+ recognition.onstart=()=>{
+ document.getElementById('voiceStatus').textContent="Listening...";
+ };
+ recognition.onend=()=>{
+ document.getElementById('voiceStatus').textContent="Finished listening.";
+ };
+ recognition.start();
+}
+
+function stopSpeaking(){
+ if('speechSynthesis' in window)speechSynthesis.cancel();
+ document.getElementById('voiceStatus').textContent="Voice stopped.";
+}
+</script>
+</body>
+</html>
